@@ -8,6 +8,26 @@
 </head>
 <body>
     <nav>
+        <ul>
+            {% if request.session.user_id == True %}
+            <li>
+                <a href="user_edit">User Edit</a>
+            </li>
+            <li>
+                <a href="logout">Logout</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="login">Login</a>
+            </li>
+            <li>
+                <a href="register">Register</a>
+            </li>
+            {% endif %}    
+            <li>
+                <a href="post">post</a>
+            </li>
+        </ul>
     </nav>
     <div>
         <h1>The Dog Blog</h1>
