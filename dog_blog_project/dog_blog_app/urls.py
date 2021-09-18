@@ -4,8 +4,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.home),
     path('uploadprofilepicture', views.uploadprofilepicture),
+    path('register', views.register),
+    path('login', views.login),
+    path('logout', views.logout),
+    path('user_edit', views.user_edit),
+    path('submission_page', views.submission_page),
+    path('favorite_post/<int:post_id>', views.favorite_post),
+    path('favorite_post/<int:post_id>', views.unfavorite_post)
 ]
 
 # This is setting is required to allow writing media files to local file system. Typically they are store on a CDN or in S3
