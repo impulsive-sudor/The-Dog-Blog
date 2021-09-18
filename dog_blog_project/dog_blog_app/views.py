@@ -19,7 +19,7 @@ def user_edit(request):
         return redirect('/')
     else:
         context = {
-            'user': User.objects.get(id=request.session['user_id'])
+            'users': User.objects.get(id=request.session['user_id'])
         }
         return render(request, "edit_user.html", context)
 
@@ -30,7 +30,18 @@ def submission_page(request):
     return render(request, 'submission_page.html')
 
 def home(request):
-    return render(request, 'home.html')
+    if "user_id" not in request.session:
+        context = {
+            'posts': Post.objects.all()
+        }
+        return render(request, "home.html", context)
+    else:
+        context = {
+            'users': User.objects.get(id=request.session['user_id']),
+            'posts': Post.objects.all()
+        }
+        return render(request, "home.html", context)
+    
 
 # This code is to upload a profile picture, need to intergrate into user creation form
 def uploadprofilepicture(request):
