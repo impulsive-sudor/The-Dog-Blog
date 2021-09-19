@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <title>The Dog Blog - Friends List</title>
+    </head>
+    <body>
+        <nav>
+            <ul class="nav justify-content-center">
+                {% if request.session.user_id == True %}
+                <li class="nav-item">
+                    <a class="nav-link" href="user_edit">User Edit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="register">Register</a>
+                </li>
+                {% endif %}    
+                <li class="nav-item">
+                    <a class="nav-link" href="post">Post</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="container">
+            <h2>{{user.name}}Friends List</h2>
+            <table>
+                <tr>
+                    <th>Friend's username</th>
+                    <th>View Page</th>
+                    <th>Edit</th>
+                </tr>
+                <!--loop to show each friend in table, not sure if this is the right way to do it yet-->>
+                {% for Friend in friends %}
+                    {%  for User in Friend.users $}
+                    <td>{{User.first_name}}</td>
+                    <td><a href="/{{User.id}}/page">View Page</a></td>
+                    <td>
+                        <form action="/lose_friend/{{User.id}}" method="post">
+                            {% csrf_token%}
+                            <button type="submit">Unfriend</button>
+                        </form>
+                    </td>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>
