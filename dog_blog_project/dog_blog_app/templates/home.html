@@ -17,6 +17,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="logout">Logout</a>
             </li>
+            <!--Friends List button for Navbar-->
+            <li class="nav-item">
+                <a class="nav-link" href="/{{user.id}}/friends">Logout</a>
+            </li>
             {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="login">Login</a>
@@ -45,7 +49,7 @@
                     <h4 class="card-title">{{ post.title }}</h1>
                     <h5 class="card-text">{{ post.created_at }} by {{ post.user }}</h4>
                     <p class="card-text">{{ post.text }}</p>
-                    <a class="btn btn-primary" href="comment_page">Comment</a>
+                    <a class="btn btn-primary" href="/post/{{Post.id}}">View Page</a>
                 </div>
             </div>
         </div>
@@ -58,7 +62,8 @@
                     <h4 class="card-title">{{ post.title }}</h1>
                     <h5 class="card-text">{{ post.created_at }} by {{ post.user }}</h4>
                     <p class="card-text">{{ post.text }}</p>
-                    <a class="btn btn-primary" href="comment_page">Comment</a>
+                    <!--added link to take to the View Post page-->
+                    <a class="btn btn-primary" href="/post/{{post.id}}">Comment</a>
                 </div>
             </div>
         </div>
