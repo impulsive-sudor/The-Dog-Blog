@@ -2,7 +2,6 @@ from django.db import models
 import re
 from django.utils import timezone
 
-# Create your models here.
 class UserManager(models.Manager):
     def register_validation(self,post_data):
         errors = {}
@@ -134,3 +133,22 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+
+class Post(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Comment(models.Model):
+    statement = models.CharField(max_length=500)
+    owner = models.ForeignKey(User, related_name='user_comments', on_delete=models.CASCADE)
+    commented_on = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Friend(models.Model):
+    #users is the friends list, this_user is who's logged in's friends list
+    #to many with this_user, many to many with users
+    users = models.ManyToManyField(User, related_name='friend_set')
+    this_user = models.ForeignKey(User, related_name='owner', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
