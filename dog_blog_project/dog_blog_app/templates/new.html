@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            
+        <title>The Dog Blog</title>
+    </head>
+    {% load static %}
+
+<body id="bg" style="background-image: url('{% static "media/3 pups.png" %}');">
+
+
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10">
+
+                <h1 class="mt-2">Thanks for joining "The Dog Blog" (name) !</h1>
+                <br>
+                <br>
+                <h3>Enter your post here: </h3>
+                <hr class="mt-0 mb-4">
+
+                    <form>
+                        <form action="/create" method="POST">
+                            {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name"></label>
+                            <input type="text" class="form-control" id="name" placeholder="Dog's Name">
+                        </div>
+                    <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                            <label for="breed"></label>
+                            <input type="text" class="form-control" id="breed" placeholder="Breed">
+                            </div>
+                    <div class="col-md-4 mb-3">
+                            <label for="color"></label>
+                            <input type="text" class="form-control" id="color" placeholder="Color" >
+                                    </div>
+                <div class="col-md-4 mb-3">
+                            <label for="age"></label>
+                            <input type="text" class="form-control" id="age" placeholder="Age">
+                            </div>
+                                    </div>
+
+                <div class="form-group">
+                        <label for="story"></label>
+                            <input type="text" class="form-control" id="story" placeholder="Tell us about your dog">
+                        </div>
+                        <br>
+                        
+                    <h5>Upload a photo</h5>
+                    <center>
+                    <div style ="max-width:470px;">
+                    <input type="file" id="myfile">
+                    <button type="submit">Upload</button>
+                    </center>
+                        
+                    </div>
+                    </div>
+
+                        <br>
+                        </form>
+                        <br>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3 text-center">
+                        <input type="submit" class="btn btn-secondary" value="Cancel">
+                        <input type="submit" class="btn btn-info" value="Update">
+                        </div>
+                        
+                    </div>
+                                    
+                                    
+            
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

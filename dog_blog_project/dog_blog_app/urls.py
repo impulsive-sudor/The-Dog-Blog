@@ -27,6 +27,7 @@ urlpatterns = [
     path('comment/<int:post_id>',views.post_comment),
     path('add_friend/<int:User_id>',views.add_friend),
     path('lose_friend/<int:User_id>',views.lose_friend)
+     
 ]
 
 # This is setting is required to allow writing media files to local file system. Typically they are store on a CDN or in S3
