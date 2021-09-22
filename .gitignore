@@ -224,3 +224,5 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/django,windows,linux,visualstudiocode,git
 dog_blog_project/dog_blog_app/migrations/0001_initial.py
+dog_blog_project/pictures/profitimages/Screenshot_2021-09-04_201652_y7qR16N.png
+dog_blog_project/pictures/profitimages/Screenshot_2021-09-04_201652.png
