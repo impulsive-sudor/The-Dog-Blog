@@ -152,3 +152,39 @@ class Friend(models.Model):
     this_user = models.ForeignKey(User, related_name='owner', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+
+class DogManager(models.Manager):
+    def update_validator(self, postData):
+        errors ={}
+
+        if len(postData['name']) < 2:
+            errors['name'] = "Dog's name can not be that short"
+        if len(postData['breed']) < 1:
+            errors['breed'] = "Breed cannot be blank."    
+        if len(postData['color']) < 1:
+            errors['color'] = "Color cannot be blank."     
+        if len(postData['age']) < 1:
+            errors['age'] = "Age cannot be blank." 
+    
+        if len(postData['story']) < 3:
+            errors['story'] = "Story cannot be blank."      
+        
+        return errors
+
+
+
+
+class Dog(models.Model):
+    name = models.CharField(max_length=20)
+    breed = models.CharField(max_length=20)
+    color = models.CharField(max_length=20)
+    age = models.CharField(max_length=20)
+    story = models.CharField(max_length=250)
+    created_at =  models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, related_name="dogs_created", on_delete = models.CASCADE)
+    owner = models.ForeignKey(User, related_name="dogs_owned", on_delete = models.CASCADE)
+
+    objects = DogManager()
