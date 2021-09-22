@@ -25,7 +25,7 @@ def register(request):
             birthdate = request.POST['birthdate']
         )
         request.session['user_id'] = user.id
-        return redirect('/edit_page')
+        return redirect('/')
     return redirect('/login_register')
 
 # Nick is working on this
@@ -41,7 +41,7 @@ def login(request):
             logged_user = user[0]
             if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
                 request.session['user_id'] = logged_user.id
-                return redirect('/edit_page')
+                return redirect('/')
             else:
                 messages.error(request, "Email or Password not match!", extra_tags='login')
 
