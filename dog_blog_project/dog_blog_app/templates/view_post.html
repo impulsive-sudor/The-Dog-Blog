@@ -15,17 +15,18 @@
                     <a class="nav-link" href="user_edit">User Edit</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="logout">Logout</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
+                <!--Friends List button for Navbar-->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{user.id}}/friends">Logout</a>
+                    <a class="nav-link" href="/{{user.id}}/friends">Friends List</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="login">Login</a>
+                    <a class="nav-link" href="/login_register">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="register">Register</a>
+                    <a class="nav-link" href="/login_register">Register</a>
                 </li>
                 {% endif %}    
                 <li class="nav-item">
@@ -41,18 +42,18 @@
                     <h5 class="card-text">{{ post.created_at }} by {{ post.user }}</h4>
                     <p class="card-text">{{ post.text }}</p>
 
-                    <!--tracker for how many users favorited post -->>
+                    <!--tracker for how many users favorited post -->
                     <p class="card-text">{{ count }} users have favorited</p>
 
                     <!--favorite/unfavorite this post-->
                     <!--unfavorite-->
                     {% for user in post.favorites.all %}
-                        <form action="/favorite_post/{{post.id}}"" method="POST">
+                        <form action="/favorite_post/{{post.id}}" method="POST">
                             {% csrf_token %}
                             <button type="submit">Stop Tracking</button> 
                         </form>
                     {% endfor %}
-                    <!--favorite-->>
+                    <!--favorite-->
                     {% for user in all_users %}
                         {% if user not in post.favorites.all %}
                             <form action="/unfavorite_post/{{post.id}}" method="POST">
