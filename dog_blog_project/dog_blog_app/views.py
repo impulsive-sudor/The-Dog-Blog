@@ -109,15 +109,15 @@ def home(request):
         return render(request, "home.html", context)
     else:
         #added friends list/non friends list filter to sort posts
+        #friends list was breaking the page so I commented it out for now
         user = User.objects.get(id=request.session["user_id"])
-        friends_posts = Post.objects.filter(this_user=user)
-        non_friends_posts = Post.objects.exclude(this_user=user)
+        #friends_posts = Post.objects.filter(this_user=user)
+        #non_friends_posts = Post.objects.exclude(this_user=user)
         context = {
             'user': user,
-            'posts': Post.objects.all(),
-            'friends_posts' : friends_posts,
-            'non_friends_posts' : non_friends_posts
+            'posts': Post.objects.all()
         }
+        
         return render(request, "home.html", context)
     
 
@@ -151,17 +151,20 @@ def unfavorite_post(request, post_id):
 
 
 #GET-----------------------------------------
-def friends_list(request):
+def friends_list(request, User_id):
     if "user_id" not in request.session:
         return HttpResponse("Only Registered Users can access a Friends List!")
     else:
-        user = User.objects.get(id=request.session["user_id"])
-        friends = Friend.objects.get(this_user=user)
-        context= {
-            'user' : user,
-            'friends' : friends
-        }
-        return (request, 'friends_list.html', context)
+        if User_id in Friend.objects.filter(this_user=User_id):
+            user = User.objects.get(id=request.session["user_id"])
+            friends = Friend.objects.get(this_user=user)
+            context= {
+                'user' : user,
+                'friends' : friends
+            }
+            return (request, 'friends_list.html', context)
+        else:
+            return HttpResponse("Get some friends!")
 
 def view_post(request, Post_id):
     if "user_id" not in request.session:
@@ -170,6 +173,7 @@ def view_post(request, Post_id):
         post = Post.objects.get(id=Post_id)
         comments = Comment.objects.filter(commented_on=post)
         user = User.objects.get(id=request.session["user_id"])
+        all_users = User.objects.all()
         #counter of how many people favorited post
         favorites = post.favorites.all()
         count_favorites = {}
@@ -178,7 +182,8 @@ def view_post(request, Post_id):
             'post' : post,
             'comments' : comments,
             'user' : user,
-            'count' : len(count_favorites)
+            'count' : len(count_favorites),
+            'all_users' : all_users
         }
         return (request,'view_post.html', context)
 

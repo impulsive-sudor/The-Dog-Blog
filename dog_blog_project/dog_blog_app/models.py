@@ -146,7 +146,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Friend(models.Model):
-    #users is the friends list, this_user is who's logged in's friends list
+    #users is the friends list, this_user is whoever's logged in's friends list
     #to many with this_user, many to many with users
     users = models.ManyToManyField(User, related_name='friend_set')
     this_user = models.ForeignKey(User, related_name='owner', on_delete=models.CASCADE)
