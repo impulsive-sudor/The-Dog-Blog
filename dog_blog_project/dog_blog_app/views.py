@@ -81,7 +81,7 @@ def user_edit(request):
         else: 
             update_user.gender = request.POST['gender']
         update_user.save()
-        return redirect('/user_page')
+        return redirect('/')
     return redirect('/edit_page')
 
 def user_page(request):
