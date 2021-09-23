@@ -111,6 +111,38 @@ class UserManager(models.Manager):
 
         return errors
 
+class DogimageManager(models.Manager):
+    def dog_validation(self, post_data):
+        errors = {}
+
+        # dog name validation
+        if post_data['dog_name'] == '':
+            errors['dog_name_empty'] = "Please fill your dog name"
+        elif len(post_data['dog_name']) < 2:
+            errors['dog_name_length'] = "Dog name has at least 2 characters"
+
+        # dog's breed validation
+        if post_data['breed'] =='':
+            errors['breed_empty'] = "Please tell us your dog's breed"
+            
+        # dog's color validation
+        if post_data['color'] == '':
+            errors['color_empty'] = "Dog's color must be fill"
+
+        # dog's age validation
+        if post_data['age'] == '':
+            errors['age_empty'] = "Dog's age can not be empty"
+        elif int(post_data['age']) < 0:
+            errors['age_negative'] = "The dog's age can not be negative"
+
+        # dog's desc validation
+        if post_data['desc'] == '':
+            errors['desc_empty'] = "Please tell us something interesting about your dog!"
+        elif len(post_data['desc']) < 4 :
+            errors['desc_length'] = "Description has at least 4 characters"
+
+        return errors
+
 
 GENDER_CHOICES =(
     ("male", "male"), 
@@ -135,6 +167,12 @@ class User(models.Model):
     objects = UserManager()
 
 class Post(models.Model):
+    dog_name = models.CharField(max_length=255)
+    color = models.CharField(max_length=255)
+    breed = models.CharField(max_length=255)
+    age = models.IntegerField(default=0)
+    desc = models.CharField(max_length=255)
+    posted_by = models.ForeignKey(User, related_name="user_post", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

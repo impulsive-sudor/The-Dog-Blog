@@ -17,6 +17,8 @@ urlpatterns = [
     path('user_edit', views.user_edit),
 
     path('submission_page', views.submission_page),
+    path('create_post', views.create_post),
+
     path('favorite_post/<int:Post_id>', views.favorite_post),
     path('unfavorite_post/<int:Post_id>', views.unfavorite_post),
     #Christian's adds
