@@ -23,9 +23,9 @@ urlpatterns = [
     #Christian's adds
     #GET
     path('<int:User_id>/friends',views.friends_list),
-    path('post/<int:post_id>',views.view_post),
+    path('post/<int:Post_id>',views.view_post),
     #POST
-    path('comment/<int:post_id>',views.post_comment),
+    path('comment/<int:Post_id>',views.post_comment),
     path('add_friend/<int:User_id>',views.add_friend),
     path('lose_friend/<int:User_id>',views.lose_friend)
 ]

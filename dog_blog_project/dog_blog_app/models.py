@@ -150,6 +150,14 @@ GENDER_CHOICES =(
     ("other", "other")
 )
 
+class CommentManager(models.Manager):
+    def comment_validation(self, post_data):
+        errors = {}
+        # comment post validation
+        if post_data['statement'] == '':
+            errors['statement_empty'] = "Comments can't be empty"
+        return errors
+
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -178,6 +186,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = DogimageManager()
+    favorites = models.ManyToManyField(User, related_name="favorited_posts")
 
 class Comment(models.Model):
     statement = models.CharField(max_length=500)
@@ -185,6 +194,8 @@ class Comment(models.Model):
     commented_on = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = CommentManager()
+
 
 class Friend(models.Model):
     #users is the friends list, this_user is whoever's logged in's friends list
