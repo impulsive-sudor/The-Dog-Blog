@@ -24,10 +24,14 @@ urlpatterns = [
     #GET
     path('<int:User_id>/friends',views.friends_list),
     path('post/<int:Post_id>',views.view_post),
+    path('post/<int:Post_id>/edit', views.edit_post),
     #POST
     path('comment/<int:Post_id>',views.post_comment),
     path('add_friend/<int:User_id>',views.add_friend),
-    path('lose_friend/<int:User_id>',views.lose_friend)
+    path('lose_friend/<int:User_id>',views.lose_friend),
+    path('post/<int:Post_id>/edit/confirm', views.confirm_edit_post),
+    path('post/<int:Post_id>/edit/delete', views.delete_post)
+    
 ]
 
 # This is setting is required to allow writing media files to local file system. Typically they are store on a CDN or in S3

@@ -8,9 +8,29 @@
     <title>Update Page</title>
 </head>
 <body>
-    <div class="logoutPosition">
-        <a href="/">Home</a> | <a href="/logout">Log Out</a>
-    </div>
+    <nav>
+        <ul class="nav justify-content-center">
+            {% if request.session.user_id == True %}
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <!--Friends List button for Navbar-->
+            <li class="nav-item">
+                <a class="nav-link" href="/{{user.id}}/friends">Friends List</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/login_register">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login_register">Register</a>
+            </li>
+            {% endif %}    
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+        </ul>
+    </nav>
     <h2 class="d-flex justify-content-center">Edit/Upload User information</h2>
     <div class="d-flex justify-content-center">
         <div style="border: 2px solid black; padding: 30px">
@@ -63,7 +83,7 @@
                     <small>Format: 123-456-7890</small>
                 </div>
                 <div class="d-flex justify-content-start" style="padding: 5px">
-                    <label>Profit Image:</label>
+                    <label>Profile Image:</label>
                     <input type="hidden" name="user_id" value="user.id">
                     <br>
                     <input type="file" name="profitimage">
