@@ -8,12 +8,35 @@
     <title>Submission page</title>
 </head>
 <body>
-    <div class="logoutPosition">
-        <a href="/">Home</a> | <a href="/logout">Log out</a>
-    </div>
+    <nav>
+        <ul class="nav justify-content-center">
+            {% if request.session.user_id == True %}
+            <li class="nav-item">
+                <a class="nav-link" href="/edit_page">User Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <!--Friends List button for Navbar-->
+            <li class="nav-item">
+                <a class="nav-link" href="/{{user.id}}/friends">Friends List</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/login_register">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login_register">Register</a>
+            </li>
+            {% endif %}    
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+        </ul>
+    </nav>
     <div>
         <div>
-            <h1>Thanks for joining "The Dog Blog" ({{user.first_name}})</h1>
+            <h1>Thanks for joining "The Dog Blog" {{user.first_name}}</h1>
             <br>
             <p>Enter your post here:</p>
             <br>

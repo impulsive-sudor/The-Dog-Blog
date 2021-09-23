@@ -30,55 +30,67 @@
                 </li>
                 {% endif %}    
                 <li class="nav-item">
-                    <a class="nav-link" href="post">Post</a>
+                    <a class="nav-link" href="/submission_page">Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
                 </li>
             </ul>
         </nav>
         <div class="d-flex justify-content-center">
             <div class="card" style="width: 20rem;">
-                <img class="card-img-top" src={{ post.filepath.url }}>
                 <div>
-                    <h4 class="card-title">{{ post.title }}</h1>
-                    <h5 class="card-text">{{ post.created_at }} by {{ post.user }}</h4>
-                    <p class="card-text">{{ post.text }}</p>
+                    <img class="card-img-top" src={{ post.dogimage.url }}>
+                    <h2 class="card-title">{{ post.dog_name }}</h2>
+                    <h6 class="card-title">Breed: {{ post.breed }}</h6>
+                    <h6 class="card-title">Age: {{ post.age }}</h6>
+                    <h6 class="card-title">Color: {{ post.color }}</h6>
+                    <p class="card-text">{{ post.desc }}</p>
+                    <p class="card-text">Created on {{ post.created_at }} by {{ post.posted_by.first_name }} {{ post.posted_by.last_name }}</p>
 
                     <!--tracker for how many users favorited post -->
                     <p class="card-text">{{ count }} users have favorited</p>
 
+
+                </div>
+            </div>
+            <!--leave a comment-->
+            <div class="card">
+                <div class="card-body">
                     <!--favorite/unfavorite this post-->
                     <!--unfavorite-->
-                    {% for user in post.favorites.all %}
+                    <h5>Favorite this Post!</h5>
+                    {% if this_user in post.favorites.all %}
+                        <form action="/unfavorite_post/{{post.id}}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-primary" type="submit">Unfavorite</button> 
+                        </form>
+                    {% else %}
+                    <!--favorite-->
                         <form action="/favorite_post/{{post.id}}" method="POST">
                             {% csrf_token %}
-                            <button type="submit">Stop Tracking</button> 
+                            <button class="btn btn-primary" type="submit">Favorite Post</button> 
                         </form>
-                    {% endfor %}
-                    <!--favorite-->
-                    {% for user in all_users %}
-                        {% if user not in post.favorites.all %}
-                            <form action="/unfavorite_post/{{post.id}}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit">Track Item</button> 
-                            </form>
                         {% endif %}
-                    {% endfor %}
-
-
+                        <hr>
+                        {% if messages %}
+                            {% for message in messages %}
+                                    <p>{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                        <form action="/comment/{{post.id}}" method='POST'>
+                            {% csrf_token %}
+                            <label>Leave a Comment:</label>
+                            <input type="text" name="statement">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </form>
+                    <br>
+                    <h6>User Comments</h6>
+                    <hr>
                     <!--see comments from users-->
                     {% for Comment in comments %}
                         <p class="card-text">{{ Comment.owner.first_name }} Commented : {{ Comment.statement }}</p>
                     {% endfor %}
-                </div>
-            </div>
-
-            <!--leave a comment-->
-            <div class="card">
-                <div class="card-body">
-                    <form action="/comment/{{post.id}}" method='POST'>
-                        {% csrf_token %}
-                        <input type="textarea" value="leave a comment">
-                        <button type="submit">Submit</button>
-                    </form>
                 </div>
             </div>
         </div>
