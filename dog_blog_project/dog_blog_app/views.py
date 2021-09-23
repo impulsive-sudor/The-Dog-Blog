@@ -99,7 +99,33 @@ def logout(request):
 def submission_page(request):
     if "user_id" not in request.session:
         return redirect('/register')
-    return render(request, 'submission_page.html')
+    else:
+        user = User.objects.get(id = request.session['user_id'])
+        context = {
+            'user': user
+        }
+        return render(request, 'submission_page.html', context)
+
+def create_post(request):
+    errors = Post.objects.dog_validation(request.POST)
+    if errors:
+        for value in errors.values():
+            messages.error(request, value)
+
+    else:
+        user = User.objects.get(id = request.session['user_id'])
+        post = Post.objects.create(
+            dog_name = request.POST['dog_name'],
+            breed = request.POST['breed'],
+            color = request.POST['color'],
+            age = request.POST['age'],
+            desc = request.POST['desc'],
+            posted_by = user
+        )
+        request.session['post_id'] = post.id
+
+        return redirect(f'/post/{post.id}')
+    return redirect('/submission_page')
 
 def home(request):
     if "user_id" not in request.session:
@@ -121,6 +147,7 @@ def home(request):
         return render(request, "home.html", context)
     
 
+# Nick's comment: is this conflict? Edit_page has the part of upload profitiamge
 # This code is to upload a profile picture, need to intergrate into user creation form
 def uploadprofilepicture(request):
     if request.method == 'POST':
@@ -132,6 +159,7 @@ def uploadprofilepicture(request):
     else:
         form = uploadprofilepicture()
     return render(request, 'profilepictureform.html', {'form': form})
+
 
 def favorite_post(request, post_id):
     post = Post.objects.get(id=post_id)

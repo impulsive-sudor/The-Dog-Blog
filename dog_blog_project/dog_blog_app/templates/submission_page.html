@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission page</title>
+</head>
+<body>
+    <div class="logoutPosition">
+        <a href="/">Home</a> | <a href="/logout">Log out</a>
+    </div>
+    <div>
+        <div>
+            <h1>Thanks for joining "The Dog Blog" ({{user.first_name}})</h1>
+            <br>
+            <p>Enter your post here:</p>
+            <br>
+            {% if messages %}
+                {% for message in messages %}
+                    <p><strong>{{message}}</strong></p>
+                {% endfor %}
+            {% endif %}
+            <form action="/create_post" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label>Dog's Name:</label>
+                    <input type="text" name="dog_name">
+                </div>
+                <div>
+                    <label>Breed:</label>
+                    <input type="text" name="breed">
+                </div>
+                <div>
+                    <label>Color:</label>
+                    <input type="text" name="color">
+                </div>
+                <div>
+                    <label>Age:</label>
+                    <input type="text" name="age">
+                </div>
+                <div>
+                    <label>Description:</label>
+                    <textarea name="desc" rows="15" cols="60"></textarea>
+                </div>
+                <div>
+                    <input type="submit" value="Create">
+                </div>
+            </form>
+            <br>
+            <a href="/uploadprofilepicture">Click here to upload the profile picture</a>
+        </div>
+        <br>
+        <br>
+</body>
+</html>
