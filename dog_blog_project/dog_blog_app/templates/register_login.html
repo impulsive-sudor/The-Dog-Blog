@@ -11,9 +11,9 @@
     <div class="logoutPosition">
         <a href="/">Home</a>
     </div>
-    <div id="login_pattern">
-        <div id="register">
-            <h1>Registration</h1>
+    <div class="d-flex justify-content-around" style="margin-top: 30px">
+        <div style="border: 2px solid black; padding: 45px">
+            <h1 style="text-align: center;">Registration</h1>
             {% if messages %}
                 {% for message in messages %}
                     {% if message.extra_tags == "register" %}
@@ -23,39 +23,39 @@
             {% endif %}
             <form action="/register" method="POST">
                 {% csrf_token %}
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>First Name:</label>
                     <input type="text" name="first_name">
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Last Name:</label>
                     <input type="text" name="last_name">
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Email:</label>
                     <input type="email" name="email">
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Password:</label>
                     <input type="password" name="password">
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Confirm PW:</label>
                     <input type="password" name="confirm_password">
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>DOB:</label>
                     <input type="date" name="birthdate" 
                     value="2000-01-01" min="1970-01-01" max="2021-09-10">
                 </div>
-                <div>
+                <div class="d-flex justify-content-center" style="padding: 5px">
                     <input type="submit" value="Register">
                 </div>
             </form>
         </div>
         
-        <div id="login">
-            <h1>Login</h1>
+        <div style="border: 2px solid black; padding: 30px">
+            <h1 style="text-align: center;">Login</h1>
             {% if messages %}
                 {% for message in messages %}
                     {% if message.extra_tags == "login" %}
@@ -65,15 +65,15 @@
             {% endif %}
             <form action="/login" method="POST">
                 {% csrf_token %}
-                <div>
-                    <label>Email</label>
+                <div class="d-flex justify-content-start" style="padding: 10px">
+                    <label>Email: </label>
                     <input type="email" name="email">
                 </div>
-                <div>
-                    <label>Password</label>
+                <div class="d-flex justify-content-start" style="padding: 10px">
+                    <label>Password: </label>
                     <input type="password" name="password">
                 </div>
-                <div>
+                <div class="d-flex justify-content-center" style="padding: 10px">
                     <input type="submit" value="Log In">
                 </div>
             </form>

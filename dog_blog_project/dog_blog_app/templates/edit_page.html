@@ -8,12 +8,12 @@
     <title>Update Page</title>
 </head>
 <body>
-    <h2>Edit/Upload User information</h2>
     <div class="logoutPosition">
         <a href="/">Home</a> | <a href="/logout">Log Out</a>
     </div>
-    <div>
-        <div id="update_profit">
+    <h2 class="d-flex justify-content-center">Edit/Upload User information</h2>
+    <div class="d-flex justify-content-center">
+        <div style="border: 2px solid black; padding: 30px">
             {% if messages %}
                 {% for message in messages %}
                     <p><strong>{{message}}</strong></p>
@@ -23,23 +23,23 @@
                 {% csrf_token %}
                 
                 <br>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px" >
                     <label>First Name: </label>
                     <input type="text" name="first_name" value="{{user.first_name}}">
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Last Name: </label>
                     <input type="text" name="last_name" value="{{user.last_name}}">
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Email: </label>
                     <input type="email" name="email" value="{{user.email}}">
                 </div>
-                <div>
-                    <label>DOB: $</label>
+                <div class="d-flex justify-content-start" style="padding: 5px">
+                    <label>DOB: </label>
                     <input type="date" name="birthdate" value="{{user.birthdate|date:'Y-m-d'}}">
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Gender: </label>
                     <select name="gender">
                         <option selected disabled hidden>Choose your gender</option>
@@ -48,28 +48,28 @@
                         <option value="other">Other</option>
                     </select>
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Country: </label>
                     <input type="text" name="country" value="{{user.country}}">
                 </div>
 
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Address: </label>
                     <input type="text" name="address" value="{{user.address}}">
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Phone: </label>
                     <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{user.phone}}">
                     <small>Format: 123-456-7890</small>
                 </div>
-                <div>
+                <div class="d-flex justify-content-start" style="padding: 5px">
                     <label>Profit Image:</label>
                     <input type="hidden" name="user_id" value="user.id">
                     <br>
                     <input type="file" name="profitimage">
                 </div>
                 <br>
-                <div>
+                <div class="d-flex justify-content-center" style="padding: 5px">
                     <input type="submit" value="Update">
                 </div>
             </form>
