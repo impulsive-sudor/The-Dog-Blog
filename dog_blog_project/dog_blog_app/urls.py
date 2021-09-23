@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home),
-    path('uploadprofilepicture', views.uploadprofilepicture),
 
     #Nick works here
     path('login_register', views.login_register),
@@ -24,7 +23,7 @@ urlpatterns = [
     #Christian's adds
     #GET
     path('<int:User_id>/friends',views.friends_list),
-    path('post/<int:Post_id>',views.view_post),
+    path('post/<int:post_id>',views.view_post),
     #POST
     path('comment/<int:post_id>',views.post_comment),
     path('add_friend/<int:User_id>',views.add_friend),

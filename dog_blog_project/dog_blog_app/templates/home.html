@@ -30,45 +30,33 @@
             </li>
             {% endif %}    
             <li class="nav-item">
-                <a class="nav-link" href="post">Post</a>
+                <a class="nav-link" href="submission_page">Post</a>
             </li>
         </ul>
     </nav>
     <div class="d-flex justify-content-center">
         <h1>The Dog Blog</h1>
     </div>
-    {% for post in posts %}
+    
     <div class="">
-        <h2 class="d-flex justify-content-center">Friends Posts</h2>
-            <!-- Not sure if this will work, need model to test -->
-        {% if post.friend == user.friend %}
+        {% for post in posts %}
         <div class="d-flex justify-content-center">
             <div class="card" style="width: 20rem;">
-                <img class="card-img-top" src={{ post.filepath.url }}>
+                <img class="card-img-top" src={{ post.dogimage.url }}>
                 <div>
-                    <h4 class="card-title">{{ post.title }}</h1>
-                    <h5 class="card-text">{{ post.created_at }} by {{ post.user }}</h4>
-                    <p class="card-text">{{ post.text }}</p>
-                    <a class="btn btn-primary" href="/post/{{Post.id}}">View Page</a>
-                </div>
-            </div>
-        </div>
-        <h2 class="d-flex justify-content-center mt-5">Recent Posts</h2>
-        {% else %}
-        <div class="d-flex justify-content-center">
-            <div class="card" style="width: 20rem;">
-                <img class="card-img-top" src={{ post.filepath.url }}>
-                <div>
-                    <h4 class="card-title">{{ post.title }}</h1>
-                    <h5 class="card-text">{{ post.created_at }} by {{ post.user }}</h4>
-                    <p class="card-text">{{ post.text }}</p>
+                    <h2 class="card-title">{{ post.dog_name }}</h2>
+                    <h6 class="card-title">Breed: {{ post.breed }}</h6>
+                    <h6 class="card-title">Age: {{ post.age }}</h6>
+                    <h6 class="card-title">Age: {{ post.color }}</h6>
+                    <p class="card-text">{{ post.desc }}</p>
+                    <p class="card-text">Created on {{ post.created_at }} by {{ post.posted_by.first_name }} {{ post.posted_by.last_name }}</p>
                     <!--added link to take to the View Post page-->
                     <a class="btn btn-primary" href="/post/{{post.id}}">Comment</a>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endif %}
-    {% endfor %}
+
 </body>
 </html>
