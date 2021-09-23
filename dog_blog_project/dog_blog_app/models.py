@@ -32,7 +32,7 @@ class UserManager(models.Manager):
         elif not EMAIL_REGEX.match(post_data['email']):
             errors['email'] = "Invalid email address!"
         elif users:
-            errors['email_used'] = "This emaill address has registered by someone else."
+            errors['email_used'] = "This emaill address has been registered by someone else."
 
         #validate password
         if post_data['password'] == '':
@@ -117,9 +117,9 @@ class DogimageManager(models.Manager):
 
         # dog name validation
         if post_data['dog_name'] == '':
-            errors['dog_name_empty'] = "Please fill your dog name"
+            errors['dog_name_empty'] = "Please fill in your dog name"
         elif len(post_data['dog_name']) < 2:
-            errors['dog_name_length'] = "Dog name has at least 2 characters"
+            errors['dog_name_length'] = "Dog name needs at least 2 characters"
 
         # dog's breed validation
         if post_data['breed'] =='':
@@ -127,7 +127,7 @@ class DogimageManager(models.Manager):
             
         # dog's color validation
         if post_data['color'] == '':
-            errors['color_empty'] = "Dog's color must be fill"
+            errors['color_empty'] = "Dog's color must be filled"
 
         # dog's age validation
         if post_data['age'] == '':
@@ -180,7 +180,7 @@ class Post(models.Model):
     breed = models.CharField(max_length=255)
     age = models.IntegerField(default=0)
     desc = models.CharField(max_length=255)
-    dogimage = models.ImageField(upload_to='dogimages/', blank= True, null=True)
+    dogimage = models.ImageField(upload_to='dogimages/', blank= True, null=True, default="none")
     posted_by = models.ForeignKey(User, related_name="user_post", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

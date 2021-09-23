@@ -35,6 +35,7 @@ def login(request):
     if errors: 
         for value in errors.values():
             messages.error(request, value, extra_tags='login')
+        return redirect('/login_register')
 
     else:
         user = User.objects.filter(email = request.POST['email'])
@@ -45,11 +46,9 @@ def login(request):
                 return redirect('/')
             else:
                 messages.error(request, "Email or Password not match!", extra_tags='login')
-
         if not user:
-            messages.error(request,"This email address not register yet!!! Please go to register!", extra_tags='login')
-
-    return redirect('/login_register')
+            messages.error(request,"This email address not registered yet!!! Please go to register!", extra_tags='login')
+        return redirect('/')
 
 def edit_page(request):
     if "user_id" not in request.session:
@@ -206,6 +205,19 @@ def view_post(request, Post_id):
         return render(request,'view_post.html', context)
 
 
+def edit_post(request, Post_id):
+    if "user_id" not in request.session:
+        return HttpResponse("Only Registered Users can view Blog pages!")
+    else:
+        user = User.objects.get(id=request.session["user_id"])
+        post = Post.objects.get(id=Post_id)
+        context = {
+            'user': user,
+            'post': post
+        }
+        
+        return render(request, "edit_post.html", context)
+
 #POST----------------------------------------
 def post_comment(request, Post_id):
     if request.method == "GET":
@@ -257,3 +269,34 @@ def lose_friend(request, User_id):
         user_friend = User.objects.get(id=User_id)
         remove_friend.users.remove(user_friend)
         return redirect('/home')
+
+def confirm_edit_post(request, Post_id):
+    if "user_id" not in request.session:
+        return HttpResponse("Only Registered Users can view Blog pages!")
+    if request.method == "GET":
+        return redirect('/')
+    errors = Post.objects.dog_validation(request.POST)
+    if errors:
+        for value in errors.values():
+            messages.error(request, value)
+        return redirect(f'/post/{Post_id}/edit')
+    else:
+        edited_post = Post.objects.get(id=Post_id)
+        edited_post.dog_name = request.POST['dog_name']
+        edited_post.breed = request.POST['breed']
+        edited_post.color = request.POST['color']
+        edited_post.age = request.POST['age']
+        edited_post.desc = request.POST['desc']
+        edited_post.save()
+        return redirect('/')
+
+def delete_post(request, Post_id):
+    if "user_id" not in request.session:
+        return HttpResponse("Only Registered Users can view Blog pages!")
+    if request.method == "GET":
+        return redirect('/')
+    else:
+        delete_post = Post.objects.get(id=Post_id)
+        delete_post.delete()
+        return redirect('/')
+    

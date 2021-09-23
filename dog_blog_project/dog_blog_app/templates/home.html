@@ -35,23 +35,27 @@
         </ul>
     </nav>
     <div class="d-flex justify-content-center">
-        <h1>The Dog Blog</h1>
+        <h1>The Dog Blog {% if request.session.user_id == True %} - Welcome {{user.first_name}} {% endif %}
+        </h1>
     </div>
-    
+    <hr>
     <div class="">
         {% for post in posts %}
         <div class="d-flex justify-content-center">
-            <div class="card" style="width: 20rem;">
+            <div class="card" style="width: 20rem; padding:5px; margin:5px">
                 <img class="card-img-top" src={{ post.dogimage.url }}>
                 <div>
                     <h2 class="card-title">{{ post.dog_name }}</h2>
                     <h6 class="card-title">Breed: {{ post.breed }}</h6>
                     <h6 class="card-title">Age: {{ post.age }}</h6>
-                    <h6 class="card-title">Age: {{ post.color }}</h6>
+                    <h6 class="card-title">Color: {{ post.color }}</h6>
                     <p class="card-text">{{ post.desc }}</p>
                     <p class="card-text">Created on {{ post.created_at }} by {{ post.posted_by.first_name }} {{ post.posted_by.last_name }}</p>
                     <!--added link to take to the View Post page-->
                     <a class="btn btn-primary" href="/post/{{post.id}}">Comment</a>
+                    {% if post.posted_by == user %}
+                        <a class="btn btn-primary" href="/post/{{post.id}}/edit">Edit</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

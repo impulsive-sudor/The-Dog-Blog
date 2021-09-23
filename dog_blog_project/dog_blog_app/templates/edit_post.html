@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <title>Submission page</title>
+    <title>The Dog Blog - Edit Submission</title>
 </head>
 <body>
     <nav>
@@ -21,63 +21,57 @@
             <li class="nav-item">
                 <a class="nav-link" href="/{{user.id}}/friends">Friends List</a>
             </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="/login_register">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login_register">Register</a>
-            </li>
             {% endif %}    
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
         </ul>
     </nav>
-    <div>
-        <div>
-            <h1 class="d-flex justify-content-center">Thanks for joining "The Dog Blog" {{user.first_name}}</h1>
-            <br>
-            <p class="d-flex justify-content-center">Enter your post here:</p>
-            <br>
+    <div class="row align-items-center">
+        <div class="col">
+            <h1 class="d-flex justify-content-center">Edit Your Submission</h1>
+            <hr>
+            <h6 class="d-flex justify-content-center">Enter your changes here:</h6>
+            
             {% if messages %}
                 {% for message in messages %}
                     <p><strong>{{message}}</strong></p>
                 {% endfor %}
             {% endif %}
-            <form action="/create_post" method="POST" enctype="multipart/form-data" class="d-flex flex-column">
+            <form action="/post/{{post.id}}/edit/confirm" method="POST" enctype="multipart/form-data" class="d-flex flex-column">
                 {% csrf_token %}
-                <div class="d-flex justify-content-center" style="padding: 10px">
+                <div class="d-flex justify-content-center" style="padding: 10px" >
                     <label>Dog's Name: </label>
-                    <input type="text" name="dog_name">
+                    <input type="text" name="dog_name" value="{{post.dog_name}}">
                 </div>
                 <div class="d-flex justify-content-center" style="padding: 10px">
                     <label>Breed: </label>
-                    <input type="text" name="breed">
+                    <input type="text" name="breed" value="{{post.breed}}">
                 </div>
                 <div class="d-flex justify-content-center" style="padding: 10px">
                     <label>Color: </label>
-                    <input type="text" name="color">
+                    <input type="text" name="color" value="{{post.color}}">
                 </div>
                 <div class="d-flex justify-content-center" style="padding: 10px">
                     <label>Age: </label>
-                    <input type="text" name="age">
+                    <input type="text" name="age" value="{{post.age}}"}>
                 </div>
                 <div class="d-flex justify-content-center" style="padding: 10px">
                     <label>Description: </label>
                     <br>
-                    <textarea name="desc" rows="15" cols="60"></textarea>
+                    <textarea name="desc" rows="15" cols="60" value="{{post.desc}}"></textarea>
                 </div>
                 <div class="d-flex justify-content-center" style="padding: 10px">
-                    <label>Dog image: </label>
-                    <input type="file" name="dogimage">
+                    <input type="submit" value="Submit" class="btn btn-primary">
                 </div>
+            </form>
+            <form action="/post/{{post.id}}/edit/delete" method="POST">
+            {% csrf_token %}
                 <div class="d-flex justify-content-center" style="padding: 10px">
-                    <input type="submit" value="Create">
+                    <button type="submit" class="btn btn-primary">Delete Post</button>
                 </div>
             </form>
         </div>
-        <br>
-        <br>
+    </div>
 </body>
 </html>
