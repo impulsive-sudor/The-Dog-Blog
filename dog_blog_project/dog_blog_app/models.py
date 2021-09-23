@@ -180,7 +180,7 @@ class Post(models.Model):
     breed = models.CharField(max_length=255)
     age = models.IntegerField(default=0)
     desc = models.CharField(max_length=255)
-    dogimage = models.ImageField(upload_to='dogimages/', blank= True, null=True, default="")
+    dogimage = models.ImageField(upload_to='dogimages/', blank= True, null=True, default="none")
     posted_by = models.ForeignKey(User, related_name="user_post", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
