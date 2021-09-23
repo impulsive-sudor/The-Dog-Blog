@@ -36,42 +36,43 @@
     </nav>
     <div>
         <div>
-            <h1>Thanks for joining "The Dog Blog" {{user.first_name}}</h1>
+            <h1 class="d-flex justify-content-center">Thanks for joining "The Dog Blog" ({{user.first_name}})</h1>
             <br>
-            <p>Enter your post here:</p>
+            <p class="d-flex justify-content-center">Enter your post here:</p>
             <br>
             {% if messages %}
                 {% for message in messages %}
                     <p><strong>{{message}}</strong></p>
                 {% endfor %}
             {% endif %}
-            <form action="/create_post" method="POST" enctype="multipart/form-data">
+            <form action="/create_post" method="POST" enctype="multipart/form-data" class="d-flex flex-column">
                 {% csrf_token %}
-                <div>
-                    <label>Dog's Name:</label>
+                <div class="d-flex justify-content-center" style="padding: 10px">
+                    <label>Dog's Name: </label>
                     <input type="text" name="dog_name">
                 </div>
-                <div>
-                    <label>Breed:</label>
+                <div class="d-flex justify-content-center" style="padding: 10px">
+                    <label>Breed: </label>
                     <input type="text" name="breed">
                 </div>
-                <div>
-                    <label>Color:</label>
+                <div class="d-flex justify-content-center" style="padding: 10px">
+                    <label>Color: </label>
                     <input type="text" name="color">
                 </div>
-                <div>
-                    <label>Age:</label>
+                <div class="d-flex justify-content-center" style="padding: 10px">
+                    <label>Age: </label>
                     <input type="text" name="age">
                 </div>
-                <div>
-                    <label>Description:</label>
+                <div class="d-flex justify-content-center" style="padding: 10px">
+                    <label>Description: </label>
+                    <br>
                     <textarea name="desc" rows="15" cols="60"></textarea>
                 </div>
-                <div>
-                    <label>Dog image</label>
+                <div class="d-flex justify-content-center" style="padding: 10px">
+                    <label>Dog image: </label>
                     <input type="file" name="dogimage">
                 </div>
-                <div>
+                <div class="d-flex justify-content-center" style="padding: 10px">
                     <input type="submit" value="Create">
                 </div>
             </form>
