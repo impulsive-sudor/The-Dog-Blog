@@ -120,11 +120,12 @@ def create_post(request):
             color = request.POST['color'],
             age = request.POST['age'],
             desc = request.POST['desc'],
+            dogimage = request.FILES['dogimage'],
             posted_by = user
         )
         request.session['post_id'] = post.id
 
-        return redirect(f'/post/{post.id}')
+        return redirect('/')
     return redirect('/submission_page')
 
 def home(request):
@@ -149,16 +150,6 @@ def home(request):
 
 # Nick's comment: is this conflict? Edit_page has the part of upload profitiamge
 # This code is to upload a profile picture, need to intergrate into user creation form
-def uploadprofilepicture(request):
-    if request.method == 'POST':
-        form = uploadprofilepicture(request.POST, request.FILES)
-        if form.is_valid():
-            instance = User(filepath=request.FILES['file'],title=request.POST['title'])
-            instance.save()
-            return redirect('/')
-    else:
-        form = uploadprofilepicture()
-    return render(request, 'profilepictureform.html', {'form': form})
 
 
 def favorite_post(request, post_id):
@@ -194,23 +185,23 @@ def friends_list(request, User_id):
         else:
             return HttpResponse("Get some friends!")
 
-def view_post(request, Post_id):
+def view_post(request, post_id):
     if "user_id" not in request.session:
         return HttpResponse("Only Registered Users can view Blog pages!")
     else:
-        post = Post.objects.get(id=Post_id)
+        post = Post.objects.get(id=post_id)
         comments = Comment.objects.filter(commented_on=post)
         user = User.objects.get(id=request.session["user_id"])
         all_users = User.objects.all()
         #counter of how many people favorited post
-        favorites = post.favorites.all()
-        count_favorites = {}
-        count_favorites = favorites.values()
+        # favorites = post.favorites.all()
+        # count_favorites = {}
+        # count_favorites = favorites.values()
         context= {
             'post' : post,
             'comments' : comments,
             'user' : user,
-            'count' : len(count_favorites),
+            # 'count' : len(count_favorites),
             'all_users' : all_users
         }
         return (request,'view_post.html', context)
